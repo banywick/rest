@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My_first_api</title>
+</head>
+<body>
+<div style="display: flex; justify-content: center;align-items: center;border: 2px solid black; height: 200px">
+  <form method="post" action="{% url 'apinew' %}">
+        {% csrf_token %}
+        <button type="submit">Все авторы и связанные с ними книги</button>
+    </form>
+    <form method="post" action="#">
+        {% csrf_token %}
+        <button type="submit">Все книги и связанные с ними авторы</button>
+    </form>
+</div>
+
+</body>
+</html>
