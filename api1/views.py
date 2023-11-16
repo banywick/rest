@@ -3,25 +3,28 @@ from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .models import Book
-from .serializers import BookSerializer
+from .models import Book, Author
+from .serializers import BookSerializer, AuthorSerializer
 
 
-@api_view(['POST'])
-def get_page(request):
-    books = Book.objects.all()
-    serializer = BookSerializer(books, many=True)
-    return Response(serializer.data)
-
-
-def get_page2(request):
-    return render(request, 'first_api.html')
 
 
 class BookAPIView(APIView):
+    serializer_class = BookSerializer
     def post(self, request):
-        books = Book.objects.select_related('authors')
-        for book in books:
-            print(book.title, book.authors.name)
-        return Response({'books': BookSerializer(books, many=True).data, '334': '45874'})
+        input_value = request.data['title']
+        books = Book.objects.filter(title=input_value)
+        return Response({'books': BookSerializer(books, many=True).data})
+
+
+class AuthorAPIView(APIView):
+    serializer_class = AuthorSerializer
+    def post(self, request):
+        # input_value = request.data['title']
+        query = Author.objects.all()
+        return Response({'author': AuthorSerializer(query, many=True).data})
+
+
+
+
 
