@@ -22,3 +22,16 @@ class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Author
         fields = ['name', 'aut']
+
+
+# class LangForLangSerializer(serializers.Serializer):
+#     title = serializers.CharField()
+#     authors = serializers.StringRelatedField(many=True , read_only=True)
+
+
+class LanguagesSerializer(serializers.ModelSerializer):
+    aut = BookSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Language
+        fields = ['title', 'aut']
