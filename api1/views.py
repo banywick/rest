@@ -21,8 +21,19 @@ class AuthorAPIView(APIView):
     serializer_class = AuthorSerializer
     def post(self, request):
         # input_value = request.data['title']
+
         query = Author.objects.all()
-        return Response({'author': AuthorSerializer(query, many=True).data})
+        return Response({'authors': AuthorSerializer(query, many=True).data})
+
+
+# class AuthorAPIView(APIView):
+#     serializer_class = AuthorSerializer
+#     def post(self, request):
+#         # input_value = request.data['title']
+#
+#         query = Author.objects.all()
+#         return Response({'authors': AuthorSerializer(query, many=True).data})
+
 
 
 
