@@ -22,3 +22,13 @@ class Language(models.Model):
 
     def __str__(self):
         return self.title
+
+
+"""Операции CRUD REST С простой моделью"""
+
+
+class Piple(models.Model):
+    name = models.CharField(max_length=50)
+    surname = models.CharField(max_length=50)
+    old = models.IntegerField()
+    sex = models.CharField(max_length=1, default='m')

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Book, Author, Language
+from .models import Book, Author, Language, Piple
 
 
 class BookSerializer(serializers.ModelSerializer):
@@ -9,6 +9,19 @@ class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
         fields = ['title', 'authors', 'languages']
+
+
+# class BookSerializer(serializers.ModelSerializer):
+#     authors = serializers.PrimaryKeyRelatedField(queryset=Author.objects.all())
+#     languages = serializers.PrimaryKeyRelatedField(queryset=Language.objects.all(), many=True)
+#     class Meta:
+#         model = Book
+#         fields = '__all__'
+
+
+
+
+
 
 
 class BooksForAuthorsSerializer(serializers.Serializer):
@@ -24,14 +37,18 @@ class AuthorSerializer(serializers.ModelSerializer):
         fields = ['name', 'aut']
 
 
-# class LangForLangSerializer(serializers.Serializer):
-#     title = serializers.CharField()
-#     authors = serializers.StringRelatedField(many=True , read_only=True)
-
-
 class LanguagesSerializer(serializers.ModelSerializer):
     aut = BookSerializer(many=True, read_only=True)
 
     class Meta:
         model = Language
         fields = ['title', 'aut']
+
+
+"""Операции CRUD REST С простой моделью"""
+
+
+class PipleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Piple
+        fields = ['id', 'name', 'surname', 'old', 'sex']
