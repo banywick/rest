@@ -25,3 +25,7 @@ class LangSerializer(serializers.ModelSerializer):
     class Meta:
         model = Language
         # fields = ['title']
+
+
+class DataSerializer(serializers.Serializer):
+    name = serializers.CharField()
