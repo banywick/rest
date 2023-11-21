@@ -6,7 +6,7 @@ from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import Book, Author, Language, Piple
-from .serializers import AuthorSerializer, LanguagesSerializer, PipleSerializer, BookSerializer
+from .serializers import AuthorSerializer, LanguagesSerializer, PipleSerializer, BookSerializer, BookSerializer2
 
 
 # class BookAPIView(APIView):
@@ -33,19 +33,11 @@ class BookAPIView(APIView):
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
-
 class ViewBook(APIView):
     def get(self, request):
         book = Book.objects.all()
         serializer = BookSerializer(book, many=True)
         return Response(serializer.data)
-
-
-
-
-
-
-
 
 
 class AuthorAPIView(APIView):
@@ -128,3 +120,29 @@ def delete_piple(request, pk):
     piple.delete()
     return Response(status=status.HTTP_202_ACCEPTED)
 
+
+######################################################
+
+
+class LibraryAPIView(APIView):
+
+    def post(self, request):
+        serializer = BookSerializer2(data=request.data)
+        if serializer.is_valid():
+            l = []
+            name = request.data.get('authors')['name']
+            author, _ = Author.objects.get_or_create(name=name)
+            languages = request.data.get('languages')
+            for lang in languages:
+                languages_new, _ = Language.objects.get_or_create(title=lang.get('title'))
+                l.append(languages_new)
+            book, _ = Book.objects.get_or_create(title=request.data.get('title'), authors=author)
+            book.languages.add(*l)
+            return Response(serializer.validated_data)
+        else:
+            return Response(serializer.errors)
+
+    def get(self, request):
+        book = Book.objects.all()
+        serializer = BookSerializer2(book, many=True)
+        return Response(serializer.data)

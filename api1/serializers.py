@@ -19,11 +19,6 @@ class BookSerializer(serializers.ModelSerializer):
 #         fields = '__all__'
 
 
-
-
-
-
-
 class BooksForAuthorsSerializer(serializers.Serializer):
     title = serializers.CharField()
     languages = serializers.StringRelatedField(many=True)
@@ -52,3 +47,17 @@ class PipleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Piple
         fields = ['id', 'name', 'surname', 'old', 'sex']
+
+#######################################################
+class LanguageSerializer2(serializers.Serializer):
+    title = serializers.CharField(max_length=20)
+
+
+class AuthorSerializer2(serializers.Serializer):
+    name = serializers.CharField(max_length=255)
+
+
+class BookSerializer2(serializers.Serializer):
+    title = serializers.CharField(max_length=255)
+    authors = AuthorSerializer2()
+    languages = LanguageSerializer2(many=True)
