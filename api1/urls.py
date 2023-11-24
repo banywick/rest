@@ -1,6 +1,5 @@
 from django.urls import path
-from .views import BookAPIView, AuthorAPIView, LanguageAPIView, ApiOverview, add_piple, view_piple, update_piple, \
-    delete_piple, ViewBook,LibraryAPIView
+from .views import ApiOverview, add_piple, view_piple, delete_piple, update_piple
 
 urlpatterns = [
     path('', ApiOverview, name='home' ),
@@ -10,12 +9,6 @@ urlpatterns = [
     path('piple/<int:pk>/delete', delete_piple, name='delete_piple'),
 
 
-    path('book/create', BookAPIView.as_view()),
-    # path('api/book', BookAPIView.as_view()),
-    path('api/author', AuthorAPIView.as_view()),
-    path('api/lang', LanguageAPIView.as_view()),
-    path('allbook', ViewBook.as_view()),
 
-    path('api/v2', LibraryAPIView.as_view())
 
 ]
