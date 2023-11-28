@@ -26,9 +26,9 @@ class Profile(models.Model):
 
 class Person(models.Model):
     name = models.CharField(max_length=50)
-    number_person = models.OneToOneField('Profile', on_delete=models.CASCADE, primary_key=True, related_name='persons')
-    product = models.ManyToManyField('Product')
-    store = models.ForeignKey('Store', on_delete=models.CASCADE)
+    number_person = models.OneToOneField(Profile, on_delete=models.CASCADE, primary_key=True, related_name='persons')
+    product = models.ManyToManyField(Product, related_name='products')
+    store = models.ForeignKey('Store', on_delete=models.CASCADE, related_name='stors')
 
     def __str__(self):
         return self.name

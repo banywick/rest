@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Profile
+from .models import Profile, Person
 
 
 class ProductSerializer(serializers.Serializer):
@@ -12,12 +12,24 @@ class StoreSerializer(serializers.Serializer):
     title = serializers.CharField(max_length=50)
 
 
-class ProfileSerializer(serializers.Serializer):
-    number_person = serializers.CharField(max_length=50)
+class PersonSerializerProfile(serializers.ModelSerializer):
+    # product = serializers.StringRelatedField(many=True)
+    # store = serializers.StringRelatedField()
+
+    class Meta:
+        model = Person
+        # fields = ['name', 'product', 'store']
+        fields = '__all__'
+        depth = 1
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    persons = PersonSerializerProfile()
+
     class Meta:
         model = Profile
-        depth = 2
-
+        fields = '__all__'
+        depth = 1
 
 
 class PersonSerializer(serializers.Serializer):
