@@ -47,7 +47,7 @@ class ComboProfileSerializer(serializers.ModelSerializer):
 
 
 class ProfileSerializer(serializers.ModelSerializer):
-    profile = ComboProfileSerializer(many=True)
+    profile = ComboProfileSerializer()
 
     class Meta:
         model = Profile
