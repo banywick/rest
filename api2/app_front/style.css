@@ -1,0 +1,22 @@
+body{
+    background: #6fc253;
+}
+
+#button{
+    width: 500px;
+    height: 25px;
+    background: aliceblue;
+    align-content: center;
+    border: 2px solid black;
+
+}
+
+
+
+.card{
+    width: 330px;
+    height: 150px;
+    border: 2px solid darkslateblue;
+    border-radius: 15px;
+    margin: 20px;
+}
